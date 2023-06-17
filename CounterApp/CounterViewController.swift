@@ -7,9 +7,13 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CounterViewController: UIViewController {
     
-    var labelValue = 95
+    var labelValue = 95 {
+        didSet {
+            checkValueLabel()
+        }
+    }
     
     let plusButton: UIButton = {
         let button = UIButton()
@@ -91,10 +95,10 @@ class ViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        let play = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(goToSettingsVC))
-        play.tintColor = .orange
+        let settings = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(goToSettingsVC))
+        settings.tintColor = .orange
         
-        navigationItem.rightBarButtonItems = [play]
+        navigationItem.rightBarButtonItems = [settings]
     }
     
     private func setupNavigationBarTitle() {
@@ -129,22 +133,24 @@ class ViewController: UIViewController {
         
         if labelValue < 100 {
             counterLabel.font = UIFont(name: "MarkerFelt-Wide", size: 200)
-        } else if labelValue >= 100 && labelValue < 1000 {
+        } else if labelValue >= 100 && labelValue < 1_000 {
             counterLabel.font = UIFont(name: "MarkerFelt-Wide", size: 150)
-        } else {
+        } else if labelValue >= 1000 && labelValue < 10000 {
             counterLabel.font = UIFont(name: "MarkerFelt-Wide", size: 100)
+        } else {
+            counterLabel.font = UIFont(name: "MarkerFelt-Wide", size: 70)
         }
     }
     
     @objc func goToSettingsVC() {
         let vc = SettingsViewController()
+        vc.delegate = self
         present(vc, animated: true)
     }
     
     @objc func addCounterValue() {
         labelValue += 1
         counterLabel.text = labelValue.formatted()
-        checkValueLabel()
         
     }
     
@@ -153,8 +159,16 @@ class ViewController: UIViewController {
             labelValue -= 1
             counterLabel.text = labelValue.formatted()
         }
-        checkValueLabel()
     }
    
 }
+
+extension CounterViewController: SettingViewControllerDelegate {
+    func setCountingStart(at: String) {
+            labelValue = Int(at) ?? labelValue
+            counterLabel.text = at
+        }
+        
+    }
+
 

@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol SettingViewControllerDelegate: AnyObject {
+    func setCountingStart(at: String)
+}
+
 class SettingsViewController: UIViewController {
+    
+    weak var delegate: SettingViewControllerDelegate?
     
     let textFieldForInt: UITextField = {
         let tf = UITextField()
@@ -32,6 +38,7 @@ class SettingsViewController: UIViewController {
         button.backgroundColor = .orange
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(SetupCounter), for: .touchUpInside)
         
         return button
     }()
@@ -58,7 +65,16 @@ class SettingsViewController: UIViewController {
             setButton.widthAnchor.constraint(equalToConstant: 200)
             
         ])
+    }
+    
+    @objc private func SetupCounter() {
         
+        guard let text = textFieldForInt.text else { return }
+        delegate?.setCountingStart(at: text)
+//        if textFieldForInt.text != nil {
+//            delegate?.setCountingStart(at: textFieldForInt.text!)
+//        }
         
+        self.dismiss(animated: true)
     }
 }
