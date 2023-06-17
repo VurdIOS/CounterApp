@@ -1,5 +1,5 @@
 //
-//  SettingsViewController.swift
+//  NavigationViewController.swift
 //  CounterApp
 //
 //  Created by Камаль Атавалиев on 16.06.2023.
@@ -7,11 +7,15 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+class NavigationViewController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        navigationBar.prefersLargeTitles = true
+//        navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "MarkerFelt-Wide", size: 34)!]
+        
+
+        // Do any additional setup after loading the view.
     }
     
 
