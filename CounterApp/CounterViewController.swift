@@ -102,6 +102,7 @@ class CounterViewController: UIViewController {
         refreshButton.tintColor = .red
         
         
+        
         navigationItem.rightBarButtonItems = [settingsButton, refreshButton]
     }
     
