@@ -95,10 +95,14 @@ class CounterViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        let settings = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(goToSettingsVC))
-        settings.tintColor = .orange
+        let settingsButton = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(goToSettingsVC))
+        let refreshButton = UIBarButtonItem(image: UIImage(systemName: "arrow.triangle.2.circlepath"), style: .plain, target: self, action: #selector(refreshButtonTapped))
         
-        navigationItem.rightBarButtonItems = [settings]
+        settingsButton.tintColor = .orange
+        refreshButton.tintColor = .red
+        
+        
+        navigationItem.rightBarButtonItems = [settingsButton, refreshButton]
     }
     
     private func setupNavigationBarTitle() {
@@ -125,8 +129,8 @@ class CounterViewController: UIViewController {
         
         verticalStackForButtonsAndLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         verticalStackForButtonsAndLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -200).isActive = true
-        verticalStackForButtonsAndLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40).isActive = true
-        verticalStackForButtonsAndLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 40).isActive = true
+        verticalStackForButtonsAndLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
+        verticalStackForButtonsAndLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
     }
     
     private func checkValueLabel() {// тут оптимизировать, потому что проверка идет каждый раз
@@ -160,15 +164,18 @@ class CounterViewController: UIViewController {
             counterLabel.text = labelValue.formatted()
         }
     }
-   
+    
+    @objc func refreshButtonTapped() {
+        labelValue = 0
+        counterLabel.text = "0"
+    }
 }
 
 extension CounterViewController: SettingViewControllerDelegate {
-    func setCountingStart(at: String) {
-            labelValue = Int(at) ?? labelValue
-            counterLabel.text = at
+    func setCountingStartAt(number: String) {
+            labelValue = Int(number) ?? labelValue
+            counterLabel.text = number
         }
-        
     }
 
 
