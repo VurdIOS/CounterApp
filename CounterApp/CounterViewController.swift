@@ -9,7 +9,13 @@ import UIKit
 
 class CounterViewController: UIViewController {
     
-    var labelValue = 95 {
+    var stepCounting = 1 {
+        didSet {
+//            checkActiveStepButton()
+        }
+    }
+    
+    var labelValue = 0 {
         didSet {
             checkValueLabel()
         }
@@ -48,7 +54,7 @@ class CounterViewController: UIViewController {
         let label = UILabel()
         
         label.font = UIFont(name: "MarkerFelt-Wide", size: 200)
-        label.text = "95"
+        label.text = "0"
         label.textColor = .orange
         label.textAlignment = .center
         
@@ -56,13 +62,69 @@ class CounterViewController: UIViewController {
         return label
     }()
     
+    let stepWithTwo: UIButton = {
+        let button = UIButton()
+        button.setTitle("+ 2", for: .normal)
+        button.setTitleColor(.orange, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 30)
+        button.backgroundColor = .clear
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor.orange.cgColor
+        button.layer.cornerRadius = 30
+        button.addTarget(self, action: #selector(changeStepCountingOnTwo), for: .touchUpInside)
+
+        button.translatesAutoresizingMaskIntoConstraints = false
+
+        return button
+    }()
+    
+    var stepWithTwoIsActive = false
+    
+    let stepWithFive: UIButton = {
+        let button = UIButton()
+        button.setTitle("+ 5", for: .normal)
+        button.setTitleColor(.orange, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 30)
+        button.backgroundColor = .clear
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor.orange.cgColor
+        button.layer.cornerRadius = 30
+        button.addTarget(self, action: #selector(changeStepCountingOnFive), for: .touchUpInside)
+
+        button.translatesAutoresizingMaskIntoConstraints = false
+
+        return button
+    }()
+    
+    var stepWithFiveIsActive = false
+    
+    let stepWithTen: UIButton = {
+        let button = UIButton()
+        button.setTitle("+ 10", for: .normal)
+        button.setTitleColor(.orange, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 30)
+        button.backgroundColor = .clear
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor.orange.cgColor
+        button.layer.cornerRadius = 30
+        button.addTarget(self, action: #selector(changeStepCountingOnTen), for: .touchUpInside)
+
+        button.translatesAutoresizingMaskIntoConstraints = false
+
+        return button
+    }()
+    
+    var stepWithTenIsActive = false
+    
+    
+    
     let horizontalStackForButtons: UIStackView = {
-        let stackView   = UIStackView()
+        let stackView = UIStackView()
         
-        stackView.axis  = .horizontal
-        stackView.distribution  = .equalSpacing
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
         stackView.alignment = .fill
-        stackView.spacing   = 16.0
+        stackView.spacing = 16.0
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -76,6 +138,20 @@ class CounterViewController: UIViewController {
         stackView.distribution  = .equalCentering
         stackView.alignment = .fill
         stackView.spacing   = 16.0
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stackView
+    }()
+    
+    let horizontalStackForStepButtons: UIStackView = {
+        let stackView = UIStackView()
+        
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.spacing = 16.0
+        
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -100,6 +176,7 @@ class CounterViewController: UIViewController {
         
         settingsButton.tintColor = .orange
         refreshButton.tintColor = .red
+        refreshButton.largeContentSizeImage = UIImage(systemName: "arrow.triangle.2.circlepath")
         
         
         
@@ -126,12 +203,29 @@ class CounterViewController: UIViewController {
         verticalStackForButtonsAndLabel.addArrangedSubview(counterLabel)
         verticalStackForButtonsAndLabel.addArrangedSubview(horizontalStackForButtons)
         
-        view.addSubview(verticalStackForButtonsAndLabel)
+        horizontalStackForStepButtons.addArrangedSubview(stepWithTwo)
+        horizontalStackForStepButtons.addArrangedSubview(stepWithFive)
+        horizontalStackForStepButtons.addArrangedSubview(stepWithTen)
         
-        verticalStackForButtonsAndLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        verticalStackForButtonsAndLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -200).isActive = true
-        verticalStackForButtonsAndLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
-        verticalStackForButtonsAndLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        view.addSubview(verticalStackForButtonsAndLabel)
+        view.addSubview(horizontalStackForStepButtons)
+        
+        NSLayoutConstraint.activate([
+            verticalStackForButtonsAndLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            verticalStackForButtonsAndLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -200),
+            verticalStackForButtonsAndLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
+            verticalStackForButtonsAndLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20)
+        ])
+        
+        NSLayoutConstraint.activate([
+            horizontalStackForStepButtons.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            horizontalStackForStepButtons.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            horizontalStackForStepButtons.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+            horizontalStackForStepButtons.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30),
+            horizontalStackForStepButtons.heightAnchor.constraint(equalToConstant: 75),
+            horizontalStackForStepButtons.widthAnchor.constraint(equalToConstant: 75)
+        ])
+        
     }
     
     private func checkValueLabel() {// тут оптимизировать, потому что проверка идет каждый раз
@@ -154,14 +248,14 @@ class CounterViewController: UIViewController {
     }
     
     @objc func addCounterValue() {
-        labelValue += 1
+        labelValue += stepCounting
         counterLabel.text = labelValue.formatted()
         
     }
     
     @objc func minusLabelValue() {
         if labelValue > 0 {
-            labelValue -= 1
+            labelValue -= stepCounting
             counterLabel.text = labelValue.formatted()
         }
     }
@@ -169,6 +263,51 @@ class CounterViewController: UIViewController {
     @objc func refreshButtonTapped() {
         labelValue = 0
         counterLabel.text = "0"
+    }
+    
+    @objc func changeStepCountingOnTwo() {
+        stepWithTwoIsActive.toggle()
+        stepWithFiveIsActive = false
+        stepWithTenIsActive = false
+        stepCounting = stepWithTwoIsActive ? 2 : 1
+        
+        stepWithTwo.backgroundColor = stepWithTwoIsActive ? .orange : .white
+        stepWithTwo.setTitleColor(stepWithTwoIsActive ? .white : .orange , for: .normal)
+        stepWithFive.backgroundColor = .clear
+        stepWithFive.setTitleColor(.orange, for: .normal)
+        stepWithTen.backgroundColor = .clear
+        stepWithTen.setTitleColor(.orange, for: .normal)
+        
+    }
+    
+    @objc func changeStepCountingOnFive() {
+        stepWithFiveIsActive.toggle()
+        stepWithTwoIsActive = false
+        stepWithTenIsActive = false
+        stepCounting = stepWithFiveIsActive ? 5 : 1
+        
+        stepWithTwo.backgroundColor = .clear
+        stepWithTwo.setTitleColor(.orange , for: .normal)
+        stepWithFive.backgroundColor = stepWithFiveIsActive ? .orange : .white
+        stepWithFive.setTitleColor(stepWithFiveIsActive ? .white : .orange, for: .normal)
+        stepWithTen.backgroundColor = .clear
+        stepWithTen.setTitleColor(.orange, for: .normal)
+        
+    }
+    
+    @objc func changeStepCountingOnTen() {
+        stepWithTenIsActive.toggle()
+        stepWithTwoIsActive = false
+        stepWithFiveIsActive = false
+        stepCounting = stepWithTenIsActive ? 10 : 1
+        
+        stepWithTwo.backgroundColor = .clear
+        stepWithTwo.setTitleColor(.orange , for: .normal)
+        stepWithFive.backgroundColor = .clear
+        stepWithFive.setTitleColor(.orange , for: .normal)
+        stepWithTen.backgroundColor = stepWithTenIsActive ? .orange : .white
+        stepWithTen.setTitleColor(stepWithTenIsActive ? .white : .orange, for: .normal)
+        
     }
 }
 

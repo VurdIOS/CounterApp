@@ -15,12 +15,6 @@ class SettingsViewController: UIViewController {
     
     weak var delegate: SettingViewControllerDelegate?
     
-//    let switch1: UISwitch = {
-//        let swich = UISwitch()
-//        swich.translatesAutoresizingMaskIntoConstraints = false
-//
-//        return swich
-//    }()
     
     let textFieldForInt: UITextField = {
         let tf = UITextField()
@@ -58,7 +52,6 @@ class SettingsViewController: UIViewController {
     private func makeConstraints() {
         view.addSubview(textFieldForInt)
         view.addSubview(setButton)
-//        view.addSubview(switch1)
         NSLayoutConstraint.activate([
             textFieldForInt.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             textFieldForInt.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -72,22 +65,12 @@ class SettingsViewController: UIViewController {
             setButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             setButton.widthAnchor.constraint(equalToConstant: 200)
         ])
-        
-//        NSLayoutConstraint.activate([
-//            switch1.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            switch1.topAnchor.constraint(equalTo: setButton.bottomAnchor, constant: 50)
-//
-//        ])
     }
     
     @objc private func SetupCounter() {
         
         guard let text = textFieldForInt.text else { return }
-        delegate?.setCountingStartAt(number: text)
-//        if textFieldForInt.text != nil {
-//            delegate?.setCountingStart(at: textFieldForInt.text!)
-//        }
-        
+        delegate?.setCountingStartAt(number: text)        
         self.dismiss(animated: true)
     }
 }
