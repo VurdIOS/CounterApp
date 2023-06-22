@@ -11,7 +11,7 @@ class CounterViewController: UIViewController {
     
     var stepCounting = 1 {
         didSet {
-//            checkActiveStepButton()
+            //            checkActiveStepButton()
         }
     }
     
@@ -28,7 +28,7 @@ class CounterViewController: UIViewController {
         button.setTitleColor(.orange, for: .normal)
         button.setTitleColor(.clear, for: .highlighted)
         button.titleLabel?.font = UIFont(name: "MarkerFelt-Wide", size: 150)
-        button.addTarget(self, action: #selector(addCounterValue), for: .touchUpInside)
+        
         
         
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -43,7 +43,7 @@ class CounterViewController: UIViewController {
         button.titleLabel?.font = UIFont(name: "MarkerFelt-Wide", size: 150)
         button.setTitleColor(.orange, for: .normal)
         button.setTitleColor(.clear, for: .highlighted)
-        button.addTarget(self, action: #selector(minusLabelValue), for: .touchUpInside)
+        
         
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -71,10 +71,10 @@ class CounterViewController: UIViewController {
         button.layer.borderWidth = 2
         button.layer.borderColor = UIColor.orange.cgColor
         button.layer.cornerRadius = 30
-        button.addTarget(self, action: #selector(changeStepCountingOnTwo), for: .touchUpInside)
-
+        
+        
         button.translatesAutoresizingMaskIntoConstraints = false
-
+        
         return button
     }()
     
@@ -89,10 +89,10 @@ class CounterViewController: UIViewController {
         button.layer.borderWidth = 2
         button.layer.borderColor = UIColor.orange.cgColor
         button.layer.cornerRadius = 30
-        button.addTarget(self, action: #selector(changeStepCountingOnFive), for: .touchUpInside)
-
+        
+        
         button.translatesAutoresizingMaskIntoConstraints = false
-
+        
         return button
     }()
     
@@ -107,10 +107,10 @@ class CounterViewController: UIViewController {
         button.layer.borderWidth = 2
         button.layer.borderColor = UIColor.orange.cgColor
         button.layer.cornerRadius = 30
-        button.addTarget(self, action: #selector(changeStepCountingOnTen), for: .touchUpInside)
-
+        
+        
         button.translatesAutoresizingMaskIntoConstraints = false
-
+        
         return button
     }()
     
@@ -163,6 +163,7 @@ class CounterViewController: UIViewController {
         
         setupNavigationBar()
         setupConstraints()
+        setupTargetsForButtons()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -172,7 +173,7 @@ class CounterViewController: UIViewController {
     
     private func setupNavigationBar() {
         let settingsButton = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(goToSettingsVC))
-        let refreshButton = UIBarButtonItem(image: UIImage(systemName: "arrow.triangle.2.circlepath"), style: .plain, target: self, action: #selector(refreshButtonTapped))
+        let refreshButton = UIBarButtonItem(image: UIImage(systemName: "arrow.triangle.2.circlepath"), style: .plain, target: self, action: #selector(showAlert))
         
         settingsButton.tintColor = .orange
         refreshButton.tintColor = .red
@@ -195,7 +196,20 @@ class CounterViewController: UIViewController {
         }// Это все нужно для того чтобы изменить цвет и шрифт тайтла навигейшн бара
     }
     
+    private func setupTargetsForButtons() {
+        
+        plusButton.addTarget(self, action: #selector(addCounterValue), for: .touchUpInside)
+        minusButton.addTarget(self, action: #selector(minusLabelValue), for: .touchUpInside)
+        
+        stepWithTwo.addTarget(self, action: #selector(changeStepCountingOnTwo), for: .touchUpInside)
+        stepWithFive.addTarget(self, action: #selector(changeStepCountingOnFive), for: .touchUpInside)
+        
+        stepWithTen.addTarget(self, action: #selector(changeStepCountingOnTen), for: .touchUpInside)
+    }
+    
     private func setupConstraints() {
+        
+        
         
         horizontalStackForButtons.addArrangedSubview(minusButton)
         horizontalStackForButtons.addArrangedSubview(plusButton)
@@ -313,9 +327,30 @@ class CounterViewController: UIViewController {
 
 extension CounterViewController: SettingViewControllerDelegate {
     func setCountingStartAt(number: String) {
-            labelValue = Int(number) ?? labelValue
-            counterLabel.text = number
-        }
+        labelValue = Int(number) ?? labelValue
+        counterLabel.text = number
     }
+}
 
+extension CounterViewController {
+    @objc func showAlert() {
+        let alert = UIAlertController(title: nil,
+                                      message: "Are you sure, you want to reset your counter" ,
+                                      preferredStyle: .alert)
+        let gotItAction = UIAlertAction(title: "Yes",
+                                        style: .default) {_ in
+            self.labelValue = 0
+            self.counterLabel.text = "0"
+            self.dismiss(animated: true)
+        }
+        
+        let cancelAction = UIAlertAction(title: "No!", style: .destructive) {_ in
+            self.dismiss(animated: true)
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(gotItAction)
+        
+        present(alert, animated: true)
+    }
+}
 
