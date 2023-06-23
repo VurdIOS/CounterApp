@@ -24,7 +24,7 @@ class SettingsViewController: UIViewController {
         tf.placeholder = "Start counting from"
         tf.textAlignment = .center
         tf.layer.cornerRadius = 10
-            
+        
         tf.keyboardType = .emailAddress
         tf.autocorrectionType = .no
         
@@ -34,20 +34,21 @@ class SettingsViewController: UIViewController {
     }()
     
     let setButton: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         button.setTitle("Setup", for: .normal)
         button.backgroundColor = .orange
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(SetupCounter), for: .touchUpInside)
+        
         
         return button
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         makeConstraints()
+        setupTargetsForButtons()
     }
     private func makeConstraints() {
         view.addSubview(textFieldForInt)
@@ -66,11 +67,33 @@ class SettingsViewController: UIViewController {
             setButton.widthAnchor.constraint(equalToConstant: 200)
         ])
     }
+    private func setupTargetsForButtons() {
+        
+        setButton.addTarget(self, action: #selector(SetupCounter), for: .touchUpInside)
+        
+    }
     
     @objc private func SetupCounter() {
+        guard let text = Int(textFieldForInt.text!) else {
+            showAlert()
+            return
+        }
         
-        guard let text = textFieldForInt.text else { return }
-        delegate?.setCountingStartAt(number: text)        
+        delegate?.setCountingStartAt(number: String(text))
         self.dismiss(animated: true)
+    }
+}
+
+extension SettingsViewController {
+    func showAlert() {
+        let alert = UIAlertController(title: nil,
+                                      message: "You can only enter numbers" ,
+                                      preferredStyle: .alert)
+        let gotItAction = UIAlertAction(title: "OK",
+                                        style: .default)
+        
+        alert.addAction(gotItAction)
+        
+        present(alert, animated: true)
     }
 }

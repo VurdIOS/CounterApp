@@ -9,15 +9,18 @@ import UIKit
 
 class CounterViewController: UIViewController {
     
-    var stepCounting = 1 {
-        didSet {
-            //            checkActiveStepButton()
-        }
-    }
+    
+    
+    private let storageManager = StorageManager.shared
+    
+    lazy var counter = storageManager.fetchCounter()
+    
+    var stepCounting = 1
     
     var labelValue = 0 {
         didSet {
             checkValueLabel()
+            saveCurrentCounter()
         }
     }
     
@@ -161,6 +164,8 @@ class CounterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchCounter()
+
         
         setupNavigationBar()
         setupConstraints()
@@ -170,6 +175,16 @@ class CounterViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setupNavigationBarTitle()
+    }
+    
+    private func fetchCounter() {
+        let counter = storageManager.fetchCounter()
+        labelValue = counter
+        counterLabel.text = String(counter)
+    }
+    
+    func saveCurrentCounter() {
+        storageManager.saveCurrent(counter: labelValue)
     }
     
     private func setupNavigationBar() {
