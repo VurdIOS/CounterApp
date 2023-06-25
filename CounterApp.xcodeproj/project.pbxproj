@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A5A9B152A4852F20028F87A /* SavingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A9B142A4852F20028F87A /* SavingViewController.swift */; };
 		3A9814442A458F350069EAD2 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9814432A458F350069EAD2 /* StorageManager.swift */; };
 		3A98144C2A4590D70069EAD2 /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A98144B2A4590D70069EAD2 /* Counter.swift */; };
 		3A9C6AA32A3C47EB00D86EAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9C6AA22A3C47EB00D86EAF /* AppDelegate.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A5A9B142A4852F20028F87A /* SavingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingViewController.swift; sourceTree = "<group>"; };
 		3A9814432A458F350069EAD2 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		3A98144B2A4590D70069EAD2 /* Counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
 		3A9C6A9F2A3C47EB00D86EAF /* CounterApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CounterApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +53,7 @@
 				3A9C6AA62A3C47EB00D86EAF /* CounterViewController.swift */,
 				3A9C6AB62A3C5F4000D86EAF /* SettingsViewController.swift */,
 				3A9C6ABA2A3C915E00D86EAF /* NavigationViewController.swift */,
+				3A5A9B142A4852F20028F87A /* SavingViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 				3A9C6AA72A3C47EB00D86EAF /* CounterViewController.swift in Sources */,
 				3A98144C2A4590D70069EAD2 /* Counter.swift in Sources */,
 				3A9C6AA32A3C47EB00D86EAF /* AppDelegate.swift in Sources */,
+				3A5A9B152A4852F20028F87A /* SavingViewController.swift in Sources */,
 				3A9814442A458F350069EAD2 /* StorageManager.swift in Sources */,
 				3A9C6AA52A3C47EB00D86EAF /* SceneDelegate.swift in Sources */,
 				3A9C6AB72A3C5F4000D86EAF /* SettingsViewController.swift in Sources */,

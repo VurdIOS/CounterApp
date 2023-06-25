@@ -164,6 +164,8 @@ class CounterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
         fetchCounter()
 
         
@@ -190,18 +192,21 @@ class CounterViewController: UIViewController {
     private func setupNavigationBar() {
         let settingsButton = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(goToSettingsVC))
         let refreshButton = UIBarButtonItem(image: UIImage(systemName: "arrow.triangle.2.circlepath"), style: .plain, target: self, action: #selector(showAlert))
+        let saveButton = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.down"), style: .plain, target: self, action: #selector(goToSaveVC))
         
         settingsButton.tintColor = .orange
         refreshButton.tintColor = .red
+        saveButton.tintColor = .orange
         refreshButton.largeContentSizeImage = UIImage(systemName: "arrow.triangle.2.circlepath")
         
         
         
-        navigationItem.rightBarButtonItems = [settingsButton, refreshButton]
+        navigationItem.rightBarButtonItems = [settingsButton, refreshButton, saveButton]
     }
     
     private func setupNavigationBarTitle() {
         self.title = "Counter"
+        navigationController?.navigationBar.prefersLargeTitles = true
         for view in self.navigationController?.navigationBar.subviews ?? [] {
             let subviews = view.subviews
             if subviews.count > 0, let label = subviews[0] as? UILabel {
@@ -275,6 +280,12 @@ class CounterViewController: UIViewController {
         let vc = SettingsViewController()
         vc.delegate = self
         present(vc, animated: true)
+    }
+    
+    @objc func goToSaveVC() {
+        let vc = SavingViewController()
+        navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     @objc func addCounterValue() {

@@ -1,19 +1,17 @@
 //
-//  NavigationViewController.swift
+//  SavingViewController.swift
 //  CounterApp
 //
-//  Created by Камаль Атавалиев on 16.06.2023.
+//  Created by Камаль Атавалиев on 25.06.2023.
 //
 
 import UIKit
 
-class NavigationViewController: UINavigationController {
+class SavingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        navigationBar.prefersLargeTitles = true
-//        view.backgroundColor = .systemGray5
-        
+        view.backgroundColor = .red
 
         // Do any additional setup after loading the view.
     }
