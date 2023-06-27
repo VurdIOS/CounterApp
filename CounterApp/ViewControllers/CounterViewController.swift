@@ -13,7 +13,7 @@ class CounterViewController: UIViewController {
     
     private let storageManager = StorageManager.shared
     
-    lazy var counter = storageManager.fetchCounter()
+    lazy var counter = storageManager.fetchCurrentCounter()
     
     var stepCounting = 1
     
@@ -180,7 +180,7 @@ class CounterViewController: UIViewController {
     }
     
     private func fetchCounter() {
-        let counter = storageManager.fetchCounter()
+        let counter = storageManager.fetchCurrentCounter()
         labelValue = counter
         counterLabel.text = String(counter)
     }
@@ -283,8 +283,8 @@ class CounterViewController: UIViewController {
     }
     
     @objc func goToSaveVC() {
-        let vc = SavingViewController()
-        navigationController?.pushViewController(vc, animated: true)
+
+        showSavingAlert()
         
     }
     
@@ -312,7 +312,7 @@ class CounterViewController: UIViewController {
         stepWithTenIsActive = false
         stepCounting = stepWithTwoIsActive ? 2 : 1
         
-        stepWithTwo.backgroundColor = stepWithTwoIsActive ? .orange : .white
+        stepWithTwo.backgroundColor = stepWithTwoIsActive ? .orange : .clear
         stepWithTwo.setTitleColor(stepWithTwoIsActive ? .white : .orange , for: .normal)
         stepWithFive.backgroundColor = .clear
         stepWithFive.setTitleColor(.orange, for: .normal)
@@ -329,8 +329,10 @@ class CounterViewController: UIViewController {
         
         stepWithTwo.backgroundColor = .clear
         stepWithTwo.setTitleColor(.orange , for: .normal)
-        stepWithFive.backgroundColor = stepWithFiveIsActive ? .orange : .white
+        
+        stepWithFive.backgroundColor = stepWithFiveIsActive ? .orange : .clear
         stepWithFive.setTitleColor(stepWithFiveIsActive ? .white : .orange, for: .normal)
+        
         stepWithTen.backgroundColor = .clear
         stepWithTen.setTitleColor(.orange, for: .normal)
         
@@ -344,9 +346,11 @@ class CounterViewController: UIViewController {
         
         stepWithTwo.backgroundColor = .clear
         stepWithTwo.setTitleColor(.orange , for: .normal)
+        
         stepWithFive.backgroundColor = .clear
         stepWithFive.setTitleColor(.orange , for: .normal)
-        stepWithTen.backgroundColor = stepWithTenIsActive ? .orange : .white
+        
+        stepWithTen.backgroundColor = stepWithTenIsActive ? .orange : .clear
         stepWithTen.setTitleColor(stepWithTenIsActive ? .white : .orange, for: .normal)
         
     }
@@ -379,5 +383,50 @@ extension CounterViewController {
         
         present(alert, animated: true)
     }
+    
+    private func showSavingAlert() {
+        let alert = UIAlertController(title: nil,
+                                      message: "Are you want to save this Counter?" ,
+                                      preferredStyle: .alert)
+        let saveAction = UIAlertAction(title: "Yes",
+                                        style: .default) {_ in
+            self.showCreateNameAlert() { [self] go in
+                storageManager.save(counter: Counter(value: self.labelValue, name: go)) // вызвать тут метод сохранения
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "No!", style: .destructive) {_ in
+            self.dismiss(animated: true)
+        }
+        
+        let showCountersAction = UIAlertAction(title: "Show Counters", style: .default) { _ in
+            let vc = SavingViewController()
+            self.present(vc, animated: true)
+        }
+        
+        alert.addAction(saveAction)
+        alert.addAction(showCountersAction)
+        alert.addAction(cancelAction)
+        
+        
+        present(alert, animated: true)
+    }
+    
+    @objc func showCreateNameAlert(complition: @escaping(String) -> Void) {
+        let alert = UIAlertController(title: nil, message: "Create name for Counter", preferredStyle: .alert)
+        
+        let saveAction = UIAlertAction(title: "Save Counter", style: .default) { _ in
+            guard let task = alert.textFields?.first?.text, !task.isEmpty else { return }
+            complition(task)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+        alert.addTextField { textField in
+            textField.placeholder = "Write here..."
+        }
+        present(alert, animated: true)
+    }
+    
 }
 

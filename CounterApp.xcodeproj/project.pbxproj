@@ -17,7 +17,6 @@
 		3A9C6AAC2A3C47EC00D86EAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A9C6AAB2A3C47EC00D86EAF /* Assets.xcassets */; };
 		3A9C6AAF2A3C47EC00D86EAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A9C6AAD2A3C47EC00D86EAF /* LaunchScreen.storyboard */; };
 		3A9C6AB72A3C5F4000D86EAF /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9C6AB62A3C5F4000D86EAF /* SettingsViewController.swift */; };
-		3A9C6ABB2A3C915E00D86EAF /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9C6ABA2A3C915E00D86EAF /* NavigationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +32,6 @@
 		3A9C6AAE2A3C47EC00D86EAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3A9C6AB02A3C47EC00D86EAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A9C6AB62A3C5F4000D86EAF /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		3A9C6ABA2A3C915E00D86EAF /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +50,6 @@
 			children = (
 				3A9C6AA62A3C47EB00D86EAF /* CounterViewController.swift */,
 				3A9C6AB62A3C5F4000D86EAF /* SettingsViewController.swift */,
-				3A9C6ABA2A3C915E00D86EAF /* NavigationViewController.swift */,
 				3A5A9B142A4852F20028F87A /* SavingViewController.swift */,
 			);
 			path = ViewControllers;
@@ -201,7 +198,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A9C6ABB2A3C915E00D86EAF /* NavigationViewController.swift in Sources */,
 				3A9C6AA72A3C47EB00D86EAF /* CounterViewController.swift in Sources */,
 				3A98144C2A4590D70069EAD2 /* Counter.swift in Sources */,
 				3A9C6AA32A3C47EB00D86EAF /* AppDelegate.swift in Sources */,

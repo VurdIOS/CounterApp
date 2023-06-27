@@ -17,15 +17,35 @@ final class StorageManager {
     private init() {}
     
     func saveCurrent(counter: Int) {
-        var lastCounter = fetchCounter()
+        var lastCounter = fetchCurrentCounter() // Глупо, переделать потом, не нужные две строки
         lastCounter = counter
         guard let data = try? JSONEncoder().encode(lastCounter) else { return }
         userDefaults.set(data, forKey: keyForCurrentValue)
     }
 
-    func fetchCounter() -> Int {
+    func fetchCurrentCounter() -> Int {
         guard let data = userDefaults.data(forKey: keyForCurrentValue) else { return 0 }
         guard let counter = try? JSONDecoder().decode(Int.self, from: data) else { return 0 }
+        return counter
+    }
+//
+//    func deleteContact(at index: Int) {
+//        var contacts = fetchContacts()
+//        contacts.remove(at: index)
+//        guard let data = try? JSONEncoder().encode(contacts) else { return }
+//        userDefaults.set(data, forKey: key)
+//    }
+    
+    func save(counter: Counter) {
+        var сounters = fetchAllCounters()
+        сounters.append(counter)
+        guard let data = try? JSONEncoder().encode(сounters) else { return }
+        userDefaults.set(data, forKey: keyForSavedCounters)
+    }
+
+    func fetchAllCounters() -> [Counter] {
+        guard let data = userDefaults.data(forKey: keyForSavedCounters) else { return [] }
+        guard let counter = try? JSONDecoder().decode([Counter].self, from: data) else { return [] }
         return counter
     }
 //
