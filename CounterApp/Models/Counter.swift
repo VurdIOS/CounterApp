@@ -8,6 +8,6 @@
 import Foundation
 
 struct Counter: Codable {
-    let value: Int
-    let name: String
+    var value: Int
+    var name: String
 }

@@ -48,12 +48,24 @@ final class StorageManager {
         guard let counter = try? JSONDecoder().decode([Counter].self, from: data) else { return [] }
         return counter
     }
-//
-//    func deleteContact(at index: Int) {
-//        var contacts = fetchContacts()
-//        contacts.remove(at: index)
-//        guard let data = try? JSONEncoder().encode(contacts) else { return }
-//        userDefaults.set(data, forKey: key)
+
+    func deleteCounter(at index: Int) {
+        var counters = fetchAllCounters()
+        counters.remove(at: index)
+        guard let data = try? JSONEncoder().encode(counters) else { return }
+        userDefaults.set(data, forKey: keyForSavedCounters)
+    }
+    
+//    func edit(counter: Counter, title: String, value: Int) {
+//        counter.name = title
+//        counter.value = value
 //    }
+    
+    func deleteAllCounter() {
+        var counters = fetchAllCounters()
+        counters = []
+        guard let data = try? JSONEncoder().encode(counters) else { return }
+        userDefaults.set(data, forKey: keyForSavedCounters)
+    }
 }
 

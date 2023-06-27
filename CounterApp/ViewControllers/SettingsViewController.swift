@@ -18,12 +18,15 @@ class SettingsViewController: UIViewController {
     
     let textFieldForInt: UITextField = {
         let tf = UITextField()
-        tf.backgroundColor = .white
+        tf.backgroundColor = .systemGray5
         tf.layer.borderWidth = 2
         tf.layer.borderColor = CGColor.init(red: 0, green: 0, blue: 0, alpha: 1)
-        tf.placeholder = "Start counting from"
         tf.textAlignment = .center
         tf.layer.cornerRadius = 10
+        
+        tf.attributedPlaceholder = NSAttributedString(
+            string: "Start counting from",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.orange])
         
         tf.keyboardType = .emailAddress
         tf.autocorrectionType = .no

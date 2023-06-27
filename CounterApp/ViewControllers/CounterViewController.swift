@@ -197,7 +197,7 @@ class CounterViewController: UIViewController {
         settingsButton.tintColor = .orange
         refreshButton.tintColor = .red
         saveButton.tintColor = .orange
-        refreshButton.largeContentSizeImage = UIImage(systemName: "arrow.triangle.2.circlepath")
+        
         
         
         
@@ -400,8 +400,9 @@ extension CounterViewController {
         }
         
         let showCountersAction = UIAlertAction(title: "Show Counters", style: .default) { _ in
-            let vc = SavingViewController()
-            self.present(vc, animated: true)
+            let vc = SavingViewController()          
+            let navBarOnModal: UINavigationController = UINavigationController(rootViewController: vc)
+            self.present(navBarOnModal, animated: true, completion: nil)
         }
         
         alert.addAction(saveAction)
@@ -420,8 +421,10 @@ extension CounterViewController {
             complition(task)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
-        alert.addAction(saveAction)
+        
         alert.addAction(cancelAction)
+        alert.addAction(saveAction)
+        
         alert.addTextField { textField in
             textField.placeholder = "Write here..."
         }
