@@ -164,6 +164,8 @@ class CounterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemGray5
+        
         
         navigationController?.navigationBar.prefersLargeTitles = true
         fetchCounter()
@@ -211,8 +213,8 @@ class CounterViewController: UIViewController {
             let subviews = view.subviews
             if subviews.count > 0, let label = subviews[0] as? UILabel {
                 label.textColor = .orange
-                label.font = UIFont(name: "MarkerFelt-Wide", size: 34)
-                label.frame.size.width = 300
+                label.font = UIFont(name: "MarkerFelt-Wide", size: 39)
+                label.frame.size.width = 500
             }
         }// Это все нужно для того чтобы изменить цвет и шрифт тайтла навигейшн бара
     }
