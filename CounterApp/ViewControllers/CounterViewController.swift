@@ -20,7 +20,7 @@ class CounterViewController: UIViewController {
     var labelValue = 0 {
         didSet {
             checkValueLabel()
-            saveCurrentCounter()// Излишне сохраняет данные при каждом изменении. Оптимизировать.
+            saveCurrentCounter()
         }
     }
     

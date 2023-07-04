@@ -11,8 +11,8 @@ final class StorageManager {
     static let shared = StorageManager()
     
     private let userDefaults = UserDefaults.standard
-    private let keyForCurrentValue = "CurrentValue"
-    private let keyForSavedCounters = "contact"
+    private let keyForCurrentValue = "currentCounterValue"
+    private let keyForSavedCounters = "savedCounters"
     
     private init() {}
     
