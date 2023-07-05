@@ -11,18 +11,27 @@ class CounterViewController: UIViewController {
     
     
     
-    private let storageManager = StorageManager.shared
+    private let storageManager = StorageManager.shared // remove
     
-    lazy var counter = storageManager.fetchCurrentCounter()
-    
-    var stepCounting = 1
-    
-    var labelValue = 0 {
+    private var viewModel: CounterViewModelProtocol! {
         didSet {
-            checkValueLabel()
-            saveCurrentCounter()
+            viewModel.viewModelDidChange = { viewModel in
+                self.labelValue = viewModel.counter
+                self.counterLabel.text = viewModel.counter.formatted()
+                self.checkValueLabel()
+            }
+            labelValue = viewModel.counter
         }
     }
+    
+    var stepCounting = 2 // remove
+    
+    var labelValue: Int = 0 //{
+//        didSet {
+//            checkValueLabel() // remove
+//            saveCurrentCounter() // remove
+//        }
+//    }
     
     
     let plusButton: UIButton = {
@@ -82,7 +91,7 @@ class CounterViewController: UIViewController {
         return button
     }()
     
-    var stepWithTwoIsActive = false
+    var stepWithTwoIsActive = false // remove
     
     let stepWithFive: UIButton = {
         let button = UIButton()
@@ -100,7 +109,7 @@ class CounterViewController: UIViewController {
         return button
     }()
     
-    var stepWithFiveIsActive = false
+    var stepWithFiveIsActive = false // remove
     
     let stepWithTen: UIButton = {
         let button = UIButton()
@@ -118,7 +127,7 @@ class CounterViewController: UIViewController {
         return button
     }()
     
-    var stepWithTenIsActive = false
+    var stepWithTenIsActive = false // remove
     
     
     
@@ -166,14 +175,17 @@ class CounterViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemGray5
         
+        viewModel = CounterViewModel()
+
+        
         
         navigationController?.navigationBar.prefersLargeTitles = true
-        fetchCounter()
+        fetchCounter() // remove
 
         
         setupNavigationBar()
         setupConstraints()
-        setupTargetsForButtons()
+        setupTargetsForButtons() // remove
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -181,13 +193,13 @@ class CounterViewController: UIViewController {
         setupNavigationBarTitle()
     }
     
-    private func fetchCounter() {
+    private func fetchCounter() { // remove
         let counter = storageManager.fetchCurrentCounter()
         labelValue = counter
         counterLabel.text = String(counter)
     }
     
-    func saveCurrentCounter() {
+    func saveCurrentCounter() { // remove
         storageManager.saveCurrent(counter: labelValue)
     }
     
@@ -265,7 +277,7 @@ class CounterViewController: UIViewController {
         
     }
     
-    private func checkValueLabel() {// тут оптимизировать, потому что проверка идет каждый раз
+    private func checkValueLabel() {
         
         if labelValue < 100 {
             counterLabel.font = UIFont(name: "MarkerFelt-Wide", size: 200)
@@ -291,16 +303,11 @@ class CounterViewController: UIViewController {
     }
     
     @objc func addCounterValue() {
-        labelValue += stepCounting
-        counterLabel.text = labelValue.formatted()
-        
+        viewModel.changeCounterValue(on: true)
     }
     
     @objc func minusLabelValue() {
-        if labelValue > 0 {
-            labelValue -= stepCounting
-            counterLabel.text = labelValue.formatted()
-        }
+        viewModel.changeCounterValue(on: false)
     }
     
     @objc func refreshButtonTapped() {
@@ -309,52 +316,55 @@ class CounterViewController: UIViewController {
     }
     
     @objc func changeStepCountingOnTwo() {
-        stepWithTwoIsActive.toggle()
-        stepWithFiveIsActive = false
-        stepWithTenIsActive = false
-        stepCounting = stepWithTwoIsActive ? 2 : 1
-        
-        stepWithTwo.backgroundColor = stepWithTwoIsActive ? .orange : .clear
-        stepWithTwo.setTitleColor(stepWithTwoIsActive ? .white : .orange , for: .normal)
-        stepWithFive.backgroundColor = .clear
-        stepWithFive.setTitleColor(.orange, for: .normal)
-        stepWithTen.backgroundColor = .clear
-        stepWithTen.setTitleColor(.orange, for: .normal)
+//        stepWithTwoIsActive.toggle()
+//        stepWithFiveIsActive = false
+//        stepWithTenIsActive = false
+//        stepCounting = stepWithTwoIsActive ? 2 : 1
+//
+//        stepWithTwo.backgroundColor = stepWithTwoIsActive ? .orange : .clear
+//        stepWithTwo.setTitleColor(stepWithTwoIsActive ? .white : .orange , for: .normal)
+//        stepWithFive.backgroundColor = .clear
+//        stepWithFive.setTitleColor(.orange, for: .normal)
+//        stepWithTen.backgroundColor = .clear
+//        stepWithTen.setTitleColor(.orange, for: .normal)
+        viewModel.changeStepCounterValue(with: 2)
         
     }
     
     @objc func changeStepCountingOnFive() {
-        stepWithFiveIsActive.toggle()
-        stepWithTwoIsActive = false
-        stepWithTenIsActive = false
-        stepCounting = stepWithFiveIsActive ? 5 : 1
-        
-        stepWithTwo.backgroundColor = .clear
-        stepWithTwo.setTitleColor(.orange , for: .normal)
-        
-        stepWithFive.backgroundColor = stepWithFiveIsActive ? .orange : .clear
-        stepWithFive.setTitleColor(stepWithFiveIsActive ? .white : .orange, for: .normal)
-        
-        stepWithTen.backgroundColor = .clear
-        stepWithTen.setTitleColor(.orange, for: .normal)
+//        stepWithFiveIsActive.toggle()
+//        stepWithTwoIsActive = false
+//        stepWithTenIsActive = false
+//        stepCounting = stepWithFiveIsActive ? 5 : 1
+//
+//        stepWithTwo.backgroundColor = .clear
+//        stepWithTwo.setTitleColor(.orange , for: .normal)
+//
+//        stepWithFive.backgroundColor = stepWithFiveIsActive ? .orange : .clear
+//        stepWithFive.setTitleColor(stepWithFiveIsActive ? .white : .orange, for: .normal)
+//
+//        stepWithTen.backgroundColor = .clear
+//        stepWithTen.setTitleColor(.orange, for: .normal)
+        viewModel.changeStepCounterValue(with: 5)
         
     }
     
     @objc func changeStepCountingOnTen() {
-        stepWithTenIsActive.toggle()
-        stepWithTwoIsActive = false
-        stepWithFiveIsActive = false
-        stepCounting = stepWithTenIsActive ? 10 : 1
-        
-        stepWithTwo.backgroundColor = .clear
-        stepWithTwo.setTitleColor(.orange , for: .normal)
-        
-        stepWithFive.backgroundColor = .clear
-        stepWithFive.setTitleColor(.orange , for: .normal)
-        
-        stepWithTen.backgroundColor = stepWithTenIsActive ? .orange : .clear
-        stepWithTen.setTitleColor(stepWithTenIsActive ? .white : .orange, for: .normal)
-        
+//        stepWithTenIsActive.toggle()
+//        stepWithTwoIsActive = false
+//        stepWithFiveIsActive = false
+//        stepCounting = stepWithTenIsActive ? 10 : 1
+//
+//        stepWithTwo.backgroundColor = .clear
+//        stepWithTwo.setTitleColor(.orange , for: .normal)
+//
+//        stepWithFive.backgroundColor = .clear
+//        stepWithFive.setTitleColor(.orange , for: .normal)
+//
+//        stepWithTen.backgroundColor = stepWithTenIsActive ? .orange : .clear
+//        stepWithTen.setTitleColor(stepWithTenIsActive ? .white : .orange, for: .normal)
+        viewModel.changeStepCounterValue(with: 10)
+            
     }
 }
 
