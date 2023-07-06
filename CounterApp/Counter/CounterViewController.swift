@@ -11,27 +11,22 @@ class CounterViewController: UIViewController {
     
     
     
-    private let storageManager = StorageManager.shared // remove
     
     private var viewModel: CounterViewModelProtocol! {
         didSet {
             viewModel.viewModelDidChange = { viewModel in
-                self.labelValue = viewModel.counter
+                
                 self.counterLabel.text = viewModel.counter.formatted()
-                self.checkValueLabel()
+                self.checkCounterSize()
+//                self.checkWhichStepButtonTupped()  // why does it not work?
             }
-            labelValue = viewModel.counter
+            self.counterLabel.text = viewModel.counter.formatted()
+            self.checkCounterSize()
         }
     }
     
-    var stepCounting = 2 // remove
     
-    var labelValue: Int = 0 //{
-//        didSet {
-//            checkValueLabel() // remove
-//            saveCurrentCounter() // remove
-//        }
-//    }
+
     
     
     let plusButton: UIButton = {
@@ -67,7 +62,6 @@ class CounterViewController: UIViewController {
         let label = UILabel()
         
         label.font = UIFont(name: "MarkerFelt-Wide", size: 200)
-        label.text = "0"
         label.textColor = .orange
         label.textAlignment = .center
         
@@ -90,9 +84,6 @@ class CounterViewController: UIViewController {
         
         return button
     }()
-    
-    var stepWithTwoIsActive = false // remove
-    
     let stepWithFive: UIButton = {
         let button = UIButton()
         button.setTitle("+ 5", for: .normal)
@@ -108,9 +99,6 @@ class CounterViewController: UIViewController {
         
         return button
     }()
-    
-    var stepWithFiveIsActive = false // remove
-    
     let stepWithTen: UIButton = {
         let button = UIButton()
         button.setTitle("+ 10", for: .normal)
@@ -127,10 +115,6 @@ class CounterViewController: UIViewController {
         return button
     }()
     
-    var stepWithTenIsActive = false // remove
-    
-    
-    
     let horizontalStackForButtons: UIStackView = {
         let stackView = UIStackView()
         
@@ -143,7 +127,6 @@ class CounterViewController: UIViewController {
         
         return stackView
     }()
-    
     let verticalStackForButtonsAndLabel: UIStackView = {
         let stackView   = UIStackView()
         
@@ -156,7 +139,6 @@ class CounterViewController: UIViewController {
         
         return stackView
     }()
-    
     let horizontalStackForStepButtons: UIStackView = {
         let stackView = UIStackView()
         
@@ -174,15 +156,11 @@ class CounterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGray5
-        
+    
         viewModel = CounterViewModel()
 
-        
-        
         navigationController?.navigationBar.prefersLargeTitles = true
-        fetchCounter() // remove
 
-        
         setupNavigationBar()
         setupConstraints()
         setupTargetsForButtons() // remove
@@ -193,20 +171,11 @@ class CounterViewController: UIViewController {
         setupNavigationBarTitle()
     }
     
-    private func fetchCounter() { // remove
-        let counter = storageManager.fetchCurrentCounter()
-        labelValue = counter
-        counterLabel.text = String(counter)
-    }
-    
-    func saveCurrentCounter() { // remove
-        storageManager.saveCurrent(counter: labelValue)
-    }
     
     private func setupNavigationBar() {
         let settingsButton = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(goToSettingsVC))
         let refreshButton = UIBarButtonItem(image: UIImage(systemName: "arrow.triangle.2.circlepath"), style: .plain, target: self, action: #selector(showAlert))
-        let saveButton = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.down"), style: .plain, target: self, action: #selector(goToSaveVC))
+        let saveButton = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.down"), style: .plain, target: self, action: #selector(showSavingAlertAction))
         
         settingsButton.tintColor = .orange
         refreshButton.tintColor = .red
@@ -238,7 +207,6 @@ class CounterViewController: UIViewController {
         
         stepWithTwo.addTarget(self, action: #selector(changeStepCountingOnTwo), for: .touchUpInside)
         stepWithFive.addTarget(self, action: #selector(changeStepCountingOnFive), for: .touchUpInside)
-        
         stepWithTen.addTarget(self, action: #selector(changeStepCountingOnTen), for: .touchUpInside)
     }
     
@@ -277,18 +245,68 @@ class CounterViewController: UIViewController {
         
     }
     
-    private func checkValueLabel() {
+    private func checkWhichStepButtonTupped(){
+        switch viewModel.stepCounter {
+        case 2:
+            stepWithTwo.backgroundColor = .orange
+            stepWithTwo.setTitleColor(.white, for: .normal)
+            stepWithFive.backgroundColor = . clear
+            stepWithFive.setTitleColor(.orange, for: .normal)
+            stepWithTen.backgroundColor = .clear
+            stepWithTen.setTitleColor(.orange, for: .normal)
+        case 5:
+            stepWithTwo.backgroundColor = .clear
+            stepWithTwo.setTitleColor(.orange, for: .normal)
+            stepWithFive.backgroundColor = .orange
+            stepWithFive.setTitleColor(.white, for: .normal)
+            stepWithTen.backgroundColor = .clear
+            stepWithTen.setTitleColor(.orange, for: .normal)
+        case 10:
+            stepWithTwo.backgroundColor = .clear
+            stepWithTwo.setTitleColor(.orange, for: .normal)
+            stepWithFive.backgroundColor = .clear
+            stepWithFive.setTitleColor(.orange, for: .normal)
+            stepWithTen.backgroundColor = .orange
+            stepWithTen.setTitleColor(.white, for: .normal)
+        default:
+            stepWithTwo.backgroundColor = .clear
+            stepWithTwo.setTitleColor(.orange, for: .normal)
+            stepWithFive.backgroundColor = .clear
+            stepWithFive.setTitleColor(.orange, for: .normal)
+            stepWithTen.backgroundColor = .clear
+            stepWithTen.setTitleColor(.orange, for: .normal)
+            
+            
+            
+            
+        }
+        //        stepWithTwoIsActive.toggle()
+        //        stepWithFiveIsActive = false
+        //        stepWithTenIsActive = false
+        //        stepCounting = stepWithTwoIsActive ? 2 : 1
+        //
+        //        stepWithTwo.backgroundColor = stepWithTwoIsActive ? .orange : .clear
+        //        stepWithTwo.setTitleColor(stepWithTwoIsActive ? .white : .orange , for: .normal)
+        //        stepWithFive.backgroundColor = .clear
+        //        stepWithFive.setTitleColor(.orange, for: .normal)
+        //        stepWithTen.backgroundColor = .clear
+        //        stepWithTen.setTitleColor(.orange, for: .normal)
+    }
+    
+    
+    private func checkCounterSize() {
         
-        if labelValue < 100 {
+        if counterLabel.text!.count < 3 {
             counterLabel.font = UIFont(name: "MarkerFelt-Wide", size: 200)
-        } else if labelValue >= 100 && labelValue < 1_000 {
+        } else if counterLabel.text!.count >= 3 && counterLabel.text!.count < 4 {
             counterLabel.font = UIFont(name: "MarkerFelt-Wide", size: 150)
-        } else if labelValue >= 1000 && labelValue < 10000 {
+        } else if counterLabel.text!.count >= 5 && counterLabel.text!.count < 6 { // need to remove zap9taya and change limits
             counterLabel.font = UIFont(name: "MarkerFelt-Wide", size: 100)
         } else {
             counterLabel.font = UIFont(name: "MarkerFelt-Wide", size: 70)
         }
     }
+    
     
     @objc func goToSettingsVC() {
         let vc = SettingsViewController()
@@ -296,9 +314,8 @@ class CounterViewController: UIViewController {
         present(vc, animated: true)
     }
     
-    @objc func goToSaveVC() {
-
-        showSavingAlert()
+    @objc func showSavingAlertAction() {
+        showSavingAlertAction()
         
     }
     
@@ -308,11 +325,6 @@ class CounterViewController: UIViewController {
     
     @objc func minusLabelValue() {
         viewModel.changeCounterValue(on: false)
-    }
-    
-    @objc func refreshButtonTapped() {
-        labelValue = 0
-        counterLabel.text = "0"
     }
     
     @objc func changeStepCountingOnTwo() {
@@ -370,7 +382,7 @@ class CounterViewController: UIViewController {
 
 extension CounterViewController: SettingViewControllerDelegate {
     func setCountingStartAt(number: String) {
-        labelValue = Int(number) ?? labelValue
+//        labelValue = Int(number) ?? labelValue
         counterLabel.text = number
     }
 }
@@ -382,8 +394,8 @@ extension CounterViewController {
                                       preferredStyle: .alert)
         let gotItAction = UIAlertAction(title: "Yes",
                                         style: .default) {_ in
-            self.labelValue = 0
-            self.counterLabel.text = "0"
+
+            self.viewModel.refreshCounterValue()
             self.dismiss(animated: true)
         }
         
@@ -402,8 +414,8 @@ extension CounterViewController {
                                       preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Yes",
                                         style: .default) {_ in
-            self.showCreateNameAlert() { [self] go in
-                storageManager.save(counter: Counter(value: self.labelValue, name: go)) // вызвать тут метод сохранения
+            self.showCreateNameAlert() { [self] newCounterName in
+                viewModel.counterName = newCounterName
             }
         }
         
