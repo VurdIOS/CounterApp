@@ -8,18 +8,15 @@
 import UIKit
 
 class SavedCountersViewController: UIViewController,UITableViewDataSource, UITableViewDelegate {
-
-    let storageManager = StorageManager.shared
-    
-    var counters: [Counter] = []
     
     let tableView = UITableView()
+    
+    var viewModel: SavedCountersViewModelProtocol!
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
-        counters = storageManager.fetchAllCounters()
         setupNavigationBar()
         
         
@@ -36,19 +33,17 @@ class SavedCountersViewController: UIViewController,UITableViewDataSource, UITab
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return counters.count
+        return viewModel.counters.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
         var content = cell.defaultContentConfiguration()
-
-        content.text = counters[indexPath.row].name
-        content.secondaryText = counters[indexPath.row].value.formatted()
-       
         
-
+        content.text = viewModel.counters[indexPath.row].name
+        content.secondaryText = viewModel.counters[indexPath.row].value.formatted()
+     
         cell.contentConfiguration = content
         
         
@@ -64,9 +59,8 @@ class SavedCountersViewController: UIViewController,UITableViewDataSource, UITab
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     
         if editingStyle == .delete {
-            counters.remove(at: indexPath.row)
+            viewModel.deleteCounter(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
-            storageManager.deleteCounter(at: indexPath.row)
         }
     }
     
@@ -99,8 +93,7 @@ class SavedCountersViewController: UIViewController,UITableViewDataSource, UITab
                                       preferredStyle: .alert)
         let gotItAction = UIAlertAction(title: "Yes",
                                         style: .default) {[self]_ in
-            self.storageManager.deleteAllCounter()
-            counters = storageManager.fetchAllCounters()
+            self.viewModel.deleteAllCounters()
             self.tableView.reloadData()
 
         }

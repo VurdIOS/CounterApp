@@ -283,7 +283,7 @@ class CounterViewController: UIViewController {
     }
     
     @objc func showSavingAlertAction() {
-        showSavingAlertAction()
+        showSavingAlert()
     }
     
     @objc func addCounterValue() {
@@ -351,8 +351,9 @@ extension CounterViewController {
             self.dismiss(animated: true)
         }
         
-        let showCountersAction = UIAlertAction(title: "Show Counters", style: .default) { _ in
+        let showCountersAction = UIAlertAction(title: "Show Counters", style: .default) { [unowned self] _ in
             let vc = SavedCountersViewController()
+            vc.viewModel = self.viewModel.getSavedCounters()
             let navBarOnModal: UINavigationController = UINavigationController(rootViewController: vc)
             self.present(navBarOnModal, animated: true, completion: nil)
         }

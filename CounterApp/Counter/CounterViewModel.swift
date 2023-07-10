@@ -17,6 +17,7 @@ protocol CounterViewModelProtocol {
     func changeStepCounterValue(with: Int)
     func refreshCounterValue()
     func setCounterValue(on: Int?)
+    func getSavedCounters() -> SavedCountersViewModel
 }
 
 class CounterViewModel: CounterViewModelProtocol {
@@ -65,6 +66,10 @@ class CounterViewModel: CounterViewModelProtocol {
     func setCounterValue(on: Int?) { // rename
         guard let number = on else {return}
         counter = number
+    }
+    
+    func getSavedCounters() -> SavedCountersViewModel {
+        SavedCountersViewModel(counters: StorageManager.shared.fetchAllCounters())
     }
 }
     
