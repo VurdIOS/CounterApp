@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SettingViewControllerDelegate: AnyObject {
-    func setCountingStartAt(number: String)
+    func setCountingStartAt(number: Int?)
 }
 
 class SettingsViewController: UIViewController {
@@ -28,7 +28,7 @@ class SettingsViewController: UIViewController {
             string: "Start counting from",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.orange])
         
-        tf.keyboardType = .emailAddress
+        tf.keyboardType = .numberPad
         tf.autocorrectionType = .no
         
         tf.translatesAutoresizingMaskIntoConstraints = false
@@ -77,12 +77,13 @@ class SettingsViewController: UIViewController {
     }
     
     @objc private func SetupCounter() {
-        guard let text = Int(textFieldForInt.text!) else {
+        guard let number = Int(textFieldForInt.text!) else {
             showAlert()
+            textFieldForInt.text = ""
             return
         }
         
-        delegate?.setCountingStartAt(number: String(text))
+        delegate?.setCountingStartAt(number: number)
         self.dismiss(animated: true)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  SavingViewController.swift
+//  SavedCountersViewController.swift
 //  CounterApp
 //
 //  Created by Камаль Атавалиев on 25.06.2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SavingViewController: UIViewController,UITableViewDataSource, UITableViewDelegate {
+class SavedCountersViewController: UIViewController,UITableViewDataSource, UITableViewDelegate {
 
     let storageManager = StorageManager.shared
     
