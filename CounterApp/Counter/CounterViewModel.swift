@@ -10,7 +10,7 @@ import Foundation
 protocol CounterViewModelProtocol {
     var counter: Int { get }
     var counterName: String { get set }
-    var stepCounter: Int { get set }
+    var stepCounter: Int { get }
     var viewModelDidChange: ((CounterViewModelProtocol) -> Void)? { get set }
     
     func changeCounterValue(on: Bool)
@@ -44,6 +44,7 @@ class CounterViewModel: CounterViewModelProtocol {
     
     var stepCounter: Int = 1
     
+    
     var viewModelDidChange: ((CounterViewModelProtocol) -> Void)?
     
     func changeCounterValue(on: Bool) {// change name
@@ -60,6 +61,7 @@ class CounterViewModel: CounterViewModelProtocol {
         } else {
             stepCounter = with
         }
+        viewModelDidChange?(self)
     }
     
     func refreshCounterValue() {

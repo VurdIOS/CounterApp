@@ -18,7 +18,7 @@ class CounterViewController: UIViewController {
                 
                 self.counterLabel.text = viewModel.counter.formatted()
                 self.checkCounterSize()
-//                self.checkWhichStepButtonTupped()  // why does it not work?
+                self.checkWhichStepButtonTupped()  // why does it not work?
             }
             self.counterLabel.text = viewModel.counter.formatted()
             self.checkCounterSize()
@@ -275,22 +275,7 @@ class CounterViewController: UIViewController {
             stepWithFive.setTitleColor(.orange, for: .normal)
             stepWithTen.backgroundColor = .clear
             stepWithTen.setTitleColor(.orange, for: .normal)
-            
-            
-            
-            
         }
-        //        stepWithTwoIsActive.toggle()
-        //        stepWithFiveIsActive = false
-        //        stepWithTenIsActive = false
-        //        stepCounting = stepWithTwoIsActive ? 2 : 1
-        //
-        //        stepWithTwo.backgroundColor = stepWithTwoIsActive ? .orange : .clear
-        //        stepWithTwo.setTitleColor(stepWithTwoIsActive ? .white : .orange , for: .normal)
-        //        stepWithFive.backgroundColor = .clear
-        //        stepWithFive.setTitleColor(.orange, for: .normal)
-        //        stepWithTen.backgroundColor = .clear
-        //        stepWithTen.setTitleColor(.orange, for: .normal)
     }
     
     
@@ -328,53 +313,16 @@ class CounterViewController: UIViewController {
     }
     
     @objc func changeStepCountingOnTwo() {
-//        stepWithTwoIsActive.toggle()
-//        stepWithFiveIsActive = false
-//        stepWithTenIsActive = false
-//        stepCounting = stepWithTwoIsActive ? 2 : 1
-//
-//        stepWithTwo.backgroundColor = stepWithTwoIsActive ? .orange : .clear
-//        stepWithTwo.setTitleColor(stepWithTwoIsActive ? .white : .orange , for: .normal)
-//        stepWithFive.backgroundColor = .clear
-//        stepWithFive.setTitleColor(.orange, for: .normal)
-//        stepWithTen.backgroundColor = .clear
-//        stepWithTen.setTitleColor(.orange, for: .normal)
         viewModel.changeStepCounterValue(with: 2)
         
     }
     
     @objc func changeStepCountingOnFive() {
-//        stepWithFiveIsActive.toggle()
-//        stepWithTwoIsActive = false
-//        stepWithTenIsActive = false
-//        stepCounting = stepWithFiveIsActive ? 5 : 1
-//
-//        stepWithTwo.backgroundColor = .clear
-//        stepWithTwo.setTitleColor(.orange , for: .normal)
-//
-//        stepWithFive.backgroundColor = stepWithFiveIsActive ? .orange : .clear
-//        stepWithFive.setTitleColor(stepWithFiveIsActive ? .white : .orange, for: .normal)
-//
-//        stepWithTen.backgroundColor = .clear
-//        stepWithTen.setTitleColor(.orange, for: .normal)
         viewModel.changeStepCounterValue(with: 5)
         
     }
     
     @objc func changeStepCountingOnTen() {
-//        stepWithTenIsActive.toggle()
-//        stepWithTwoIsActive = false
-//        stepWithFiveIsActive = false
-//        stepCounting = stepWithTenIsActive ? 10 : 1
-//
-//        stepWithTwo.backgroundColor = .clear
-//        stepWithTwo.setTitleColor(.orange , for: .normal)
-//
-//        stepWithFive.backgroundColor = .clear
-//        stepWithFive.setTitleColor(.orange , for: .normal)
-//
-//        stepWithTen.backgroundColor = stepWithTenIsActive ? .orange : .clear
-//        stepWithTen.setTitleColor(stepWithTenIsActive ? .white : .orange, for: .normal)
         viewModel.changeStepCounterValue(with: 10)
             
     }
@@ -382,7 +330,6 @@ class CounterViewController: UIViewController {
 
 extension CounterViewController: SettingViewControllerDelegate {
     func setCountingStartAt(number: String) {
-//        labelValue = Int(number) ?? labelValue
         counterLabel.text = number
     }
 }
