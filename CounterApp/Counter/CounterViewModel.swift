@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+// MARK: - CounterViewModelProtocol
 protocol CounterViewModelProtocol {
     var counter: Int { get }
     var counterName: String { get set }
@@ -19,7 +19,7 @@ protocol CounterViewModelProtocol {
     func setCounterValue(on: Int?)
     func getSavedCounters() -> SavedCountersViewModel
 }
-
+// MARK: - CounterViewModel
 class CounterViewModel: CounterViewModelProtocol {
     var counter: Int {
         get {
@@ -32,10 +32,15 @@ class CounterViewModel: CounterViewModelProtocol {
     
     var counterName: String {
         get {
-            return "hello world!"
+            return "hello world!" // hehe useless just for fun
         }
         set {
-            StorageManager.shared.save(counter: Counter(value: counter, name: newValue)) // change saving work
+            StorageManager.shared.save(
+                counter: Counter(
+                    value: counter,
+                    name: newValue
+                )
+            ) // change saving work
         }
     }
     

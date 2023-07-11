@@ -57,22 +57,46 @@ class SettingsViewController: UIViewController {
         view.addSubview(textFieldForInt)
         view.addSubview(setButton)
         NSLayoutConstraint.activate([
-            textFieldForInt.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-            textFieldForInt.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            textFieldForInt.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 50),
-            textFieldForInt.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -50),
-            textFieldForInt.heightAnchor.constraint(equalToConstant: 50),
+            textFieldForInt.topAnchor.constraint(
+                equalTo: view.topAnchor,
+                constant: 100
+            ),
+            textFieldForInt.centerXAnchor.constraint(
+                equalTo: view.centerXAnchor
+            ),
+            textFieldForInt.leftAnchor.constraint(
+                equalTo: view.leftAnchor,
+                constant: 50
+            ),
+            textFieldForInt.rightAnchor.constraint(
+                equalTo: view.rightAnchor,
+                constant: -50
+            ),
+            textFieldForInt.heightAnchor.constraint(
+                equalToConstant: 50
+            )
         ])
         
         NSLayoutConstraint.activate([
-            setButton.topAnchor.constraint(equalTo: textFieldForInt.bottomAnchor, constant: 50),
-            setButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            setButton.widthAnchor.constraint(equalToConstant: 200)
+            setButton.topAnchor.constraint(
+                equalTo: textFieldForInt.bottomAnchor,
+                constant: 50
+            ),
+            setButton.centerXAnchor.constraint(
+                equalTo: view.centerXAnchor
+            ),
+            setButton.widthAnchor.constraint(
+                equalToConstant: 200
+            )
         ])
     }
     private func setupTargetsForButtons() {
         
-        setButton.addTarget(self, action: #selector(SetupCounter), for: .touchUpInside)
+        setButton.addTarget(
+            self,
+            action: #selector(SetupCounter),
+            for: .touchUpInside
+        )
         
     }
     
@@ -90,9 +114,11 @@ class SettingsViewController: UIViewController {
 
 extension SettingsViewController {
     func showAlert() {
-        let alert = UIAlertController(title: nil,
-                                      message: "You can only enter numbers" ,
-                                      preferredStyle: .alert)
+        let alert = UIAlertController(
+            title: nil,
+            message: "You can only enter numbers" ,
+            preferredStyle: .alert
+        )
         let gotItAction = UIAlertAction(title: "OK",
                                         style: .default)
         
