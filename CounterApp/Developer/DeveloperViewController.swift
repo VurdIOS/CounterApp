@@ -11,7 +11,7 @@ class DeveloperViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .orange
+        view.backgroundColor = .blue
     }
     
 
