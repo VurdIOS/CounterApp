@@ -41,8 +41,21 @@ class SettingsViewController: UIViewController {
         button.setTitle("Setup", for: .normal)
         button.backgroundColor = .orange
         button.layer.cornerRadius = 10
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         
+        
+        return button
+    }()
+    
+    let developerButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Developer", for: .normal)
+        button.setTitleColor(.systemGray5, for: .normal)
+        button.backgroundColor = .orange
+        button.layer.cornerRadius = 10
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     }()
@@ -56,6 +69,8 @@ class SettingsViewController: UIViewController {
     private func makeConstraints() {
         view.addSubview(textFieldForInt)
         view.addSubview(setButton)
+        view.addSubview(developerButton)
+        
         NSLayoutConstraint.activate([
             textFieldForInt.topAnchor.constraint(
                 equalTo: view.topAnchor,
@@ -89,14 +104,22 @@ class SettingsViewController: UIViewController {
                 equalToConstant: 200
             )
         ])
+        
+        NSLayoutConstraint.activate([
+            developerButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+            developerButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
+            developerButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30)
+        ])
     }
     private func setupTargetsForButtons() {
         
-        setButton.addTarget(
-            self,
-            action: #selector(SetupCounter),
-            for: .touchUpInside
-        )
+        setButton.addTarget(self,
+                            action: #selector(SetupCounter),
+                            for: .touchUpInside)
+        
+        developerButton.addTarget(self,
+                                  action: #selector(goToDevView),
+                                  for: .touchUpInside)
         
     }
     
@@ -109,6 +132,12 @@ class SettingsViewController: UIViewController {
         
         delegate?.setCountingStartAt(number: number)
         self.dismiss(animated: true)
+    }
+    
+    @objc private func goToDevView() {
+        let devView = DeveloperViewController()
+        present(devView, animated: true)
+        
     }
 }
 
