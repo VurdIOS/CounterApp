@@ -102,8 +102,8 @@ extension SavedCountersViewController: UITableViewDataSource {
         
         var content = cell.defaultContentConfiguration()
         
-        content.text = viewModel.counters[indexPath.row].name
-        content.secondaryText = viewModel.counters[indexPath.row].value.formatted()
+        content.text = viewModel.counters[indexPath.row].value.formatted()
+        content.secondaryText = viewModel.counters[indexPath.row].name
      
         cell.contentConfiguration = content
         

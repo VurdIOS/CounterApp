@@ -9,12 +9,13 @@ import UIKit
 
 protocol SettingViewControllerDelegate: AnyObject {
     func setCountingStartAt(number: Int?)
+    func setSettings()
 }
-
 class SettingsViewController: UIViewController {
     
     weak var delegate: SettingViewControllerDelegate?
     
+    let labels = ["first", "Second"]
     
     let textFieldForInt: UITextField = {
         let tf = UITextField()
@@ -60,16 +61,33 @@ class SettingsViewController: UIViewController {
         return button
     }()
     
+    var controllerwithtableView: TableViewForSettingsView!
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        controllerwithtableView = TableViewForSettingsView(frame: CGRect(x: 0, y: view.bounds.width / 2 + 50, width: view.bounds.width, height: 250))
+        
+
         makeConstraints()
         setupTargetsForButtons()
+        
+        
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        delegate?.setSettings()
+    }
+    
     private func makeConstraints() {
         view.addSubview(textFieldForInt)
         view.addSubview(setButton)
         view.addSubview(developerButton)
+        view.addSubview(controllerwithtableView)
+        
+//        NSLayoutConstraint.activate([
+//            controllerwithtableView.topAnchor.constraint(equalTo: setButton.bottomAnchor, constant: 30)
+//        ])
         
         NSLayoutConstraint.activate([
             textFieldForInt.topAnchor.constraint(
@@ -106,11 +124,15 @@ class SettingsViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            developerButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
-            developerButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
-            developerButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30)
+            developerButton.bottomAnchor.constraint(equalTo: view.bottomAnchor,
+                                                    constant: -50),
+            developerButton.leftAnchor.constraint(equalTo: view.leftAnchor,
+                                                  constant: 30),
+            developerButton.rightAnchor.constraint(equalTo: view.rightAnchor,
+                                                   constant: -30)
         ])
     }
+    
     private func setupTargetsForButtons() {
         
         setButton.addTarget(self,
@@ -131,6 +153,8 @@ class SettingsViewController: UIViewController {
         }
         
         delegate?.setCountingStartAt(number: number)
+        delegate?.setSettings()
+        
         self.dismiss(animated: true)
     }
     
@@ -156,3 +180,7 @@ extension SettingsViewController {
         present(alert, animated: true)
     }
 }
+
+
+
+

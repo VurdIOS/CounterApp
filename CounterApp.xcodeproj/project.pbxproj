@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A04F4902A66D035005BBA11 /* TableViewForSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A04F48F2A66D035005BBA11 /* TableViewForSettingsView.swift */; };
 		3A19E5052A55D22C00132459 /* CounterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19E5042A55D22C00132459 /* CounterViewModel.swift */; };
 		3A28E5462A5E9D0600A752A1 /* CounterAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A28E5452A5E9D0600A752A1 /* CounterAppTests.swift */; };
 		3A28E5512A61807300A752A1 /* DeveloperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A28E5502A61807300A752A1 /* DeveloperViewController.swift */; };
@@ -19,8 +20,11 @@
 		3A9C6AAC2A3C47EC00D86EAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A9C6AAB2A3C47EC00D86EAF /* Assets.xcassets */; };
 		3A9C6AAF2A3C47EC00D86EAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A9C6AAD2A3C47EC00D86EAF /* LaunchScreen.storyboard */; };
 		3A9C6AB72A3C5F4000D86EAF /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9C6AB62A3C5F4000D86EAF /* SettingsViewController.swift */; };
+		3AC0052F2A6931D3001A6A29 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC0052E2A6931D3001A6A29 /* SettingsTableViewCell.swift */; };
+		3AC005332A6A8940001A6A29 /* SettingsTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC005322A6A8940001A6A29 /* SettingsTableViewCellModel.swift */; };
 		3AD44EB22A5C2E090080C07F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD44EB12A5C2E090080C07F /* SettingsViewModel.swift */; };
 		3AD44EB42A5C36D80080C07F /* SavedCountersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD44EB32A5C36D80080C07F /* SavedCountersViewModel.swift */; };
+		3AEC1E9E2A6E9F2600C75081 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEC1E9D2A6E9F2600C75081 /* Setting.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A04F48F2A66D035005BBA11 /* TableViewForSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewForSettingsView.swift; sourceTree = "<group>"; };
 		3A19E5042A55D22C00132459 /* CounterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterViewModel.swift; sourceTree = "<group>"; };
 		3A28E5432A5E9D0600A752A1 /* CounterAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CounterAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A28E5452A5E9D0600A752A1 /* CounterAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterAppTests.swift; sourceTree = "<group>"; };
@@ -49,8 +54,11 @@
 		3A9C6AAE2A3C47EC00D86EAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3A9C6AB02A3C47EC00D86EAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A9C6AB62A3C5F4000D86EAF /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		3AC0052E2A6931D3001A6A29 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		3AC005322A6A8940001A6A29 /* SettingsTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCellModel.swift; sourceTree = "<group>"; };
 		3AD44EB12A5C2E090080C07F /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		3AD44EB32A5C36D80080C07F /* SavedCountersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCountersViewModel.swift; sourceTree = "<group>"; };
+		3AEC1E9D2A6E9F2600C75081 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				3A98144B2A4590D70069EAD2 /* Counter.swift */,
+				3AEC1E9D2A6E9F2600C75081 /* Setting.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -181,11 +190,30 @@
 			path = CounterApp;
 			sourceTree = "<group>";
 		};
+		3AC005302A6A88A6001A6A29 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				3A04F48F2A66D035005BBA11 /* TableViewForSettingsView.swift */,
+				3AC005312A6A88F0001A6A29 /* TableViewCell */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
+		3AC005312A6A88F0001A6A29 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				3AC0052E2A6931D3001A6A29 /* SettingsTableViewCell.swift */,
+				3AC005322A6A8940001A6A29 /* SettingsTableViewCellModel.swift */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
 		3AD44EB02A5C2DC00080C07F /* Settings */ = {
 			isa = PBXGroup;
 			children = (
 				3A9C6AB62A3C5F4000D86EAF /* SettingsViewController.swift */,
 				3AD44EB12A5C2E090080C07F /* SettingsViewModel.swift */,
+				3AC005302A6A88A6001A6A29 /* TableView */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -302,9 +330,13 @@
 				3AD44EB42A5C36D80080C07F /* SavedCountersViewModel.swift in Sources */,
 				3A98144C2A4590D70069EAD2 /* Counter.swift in Sources */,
 				3A9C6AA32A3C47EB00D86EAF /* AppDelegate.swift in Sources */,
+				3AC005332A6A8940001A6A29 /* SettingsTableViewCellModel.swift in Sources */,
+				3AEC1E9E2A6E9F2600C75081 /* Setting.swift in Sources */,
 				3A28E5512A61807300A752A1 /* DeveloperViewController.swift in Sources */,
+				3AC0052F2A6931D3001A6A29 /* SettingsTableViewCell.swift in Sources */,
 				3A5A9B152A4852F20028F87A /* SavedCountersViewController.swift in Sources */,
 				3A9814442A458F350069EAD2 /* StorageManager.swift in Sources */,
+				3A04F4902A66D035005BBA11 /* TableViewForSettingsView.swift in Sources */,
 				3A19E5052A55D22C00132459 /* CounterViewModel.swift in Sources */,
 				3A9C6AA52A3C47EB00D86EAF /* SceneDelegate.swift in Sources */,
 				3A9C6AB72A3C5F4000D86EAF /* SettingsViewController.swift in Sources */,
@@ -508,7 +540,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -541,7 +573,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 // MARK: - CounterViewController
 class CounterViewController: UIViewController {
     
@@ -15,7 +16,7 @@ class CounterViewController: UIViewController {
                 
                 self.counterLabel.text = viewModel.counter.formatted()
                 self.checkCounterSize()
-                self.checkWhichStepButtonTupped()  // why does it not work?
+                self.checkWhichStepButtonTupped()
             }
             self.counterLabel.text = viewModel.counter.formatted()
             self.checkCounterSize()
@@ -351,10 +352,12 @@ class CounterViewController: UIViewController {
     
     @objc func addCounterValue() {
         viewModel.changeCounterValue(on: true)
+
     }
     
     @objc func minusLabelValue() {
         viewModel.changeCounterValue(on: false)
+        
     }
     
     @objc func changeStepCountingOnTwo() {
@@ -373,6 +376,10 @@ class CounterViewController: UIViewController {
 }
 // MARK: - Extensions
 extension CounterViewController: SettingViewControllerDelegate {
+    func setSettings() {
+        viewModel.setupSettings()
+    }
+    
     func setCountingStartAt(number: Int?) {
         viewModel.setCounterValue(on: number)
     }

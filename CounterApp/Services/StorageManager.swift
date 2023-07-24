@@ -13,6 +13,7 @@ final class StorageManager {
     private let userDefaults = UserDefaults.standard
     private let keyForCurrentValue = "currentCounterValue"
     private let keyForSavedCounters = "savedCounters"
+    private let keyForSavedSettings = "savedSettings"
     
     private init() {}
     
@@ -59,6 +60,20 @@ final class StorageManager {
         counters = []
         guard let data = try? JSONEncoder().encode(counters) else { return }
         userDefaults.set(data, forKey: keyForSavedCounters)
+    }
+    
+    func save(settings: Settings) {
+//        var сounters = fetchAllCounters()
+//        сounters.append(counter)
+        guard let data = try? JSONEncoder().encode(settings) else { return }
+        userDefaults.set(data, forKey: keyForSavedSettings)
+    }
+
+    func fetchSettings() -> Settings {
+        let defaultSettings = Settings(sound: true, vibration: true, ottricatelnie: true)
+        guard let data = userDefaults.data(forKey: keyForSavedSettings) else { return defaultSettings }
+        guard let settings = try? JSONDecoder().decode(Settings.self, from: data) else { return defaultSettings }
+        return settings
     }
 }
 
