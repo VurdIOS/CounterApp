@@ -35,8 +35,8 @@ class SettingsTableViewCell: UITableViewCell {
             viewModel.changeSwitchState(name: .Vibration)
         case SwitchesName.Sound.rawValue:
             viewModel.changeSwitchState(name: .Sound)
-        case SwitchesName.negativeNumbers.rawValue:
-            viewModel.changeSwitchState(name: .negativeNumbers)
+        case SwitchesName.NegativeNumbers.rawValue:
+            viewModel.changeSwitchState(name: .NegativeNumbers)
             
         default:
             print("Did u add a new Switch?")

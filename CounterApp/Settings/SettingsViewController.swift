@@ -72,6 +72,7 @@ class SettingsViewController: UIViewController {
 
         makeConstraints()
         setupTargetsForButtons()
+        setupNavigationBar()
         
         
     }
@@ -133,6 +134,24 @@ class SettingsViewController: UIViewController {
         ])
     }
     
+    private func setupNavigationBar() {
+        
+        title = "Settings"
+
+        let doneButton = UIBarButtonItem(title: "Done",
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(doneButtonPressed))
+
+        navigationItem.rightBarButtonItem = doneButton
+        
+
+    }
+    
+    @objc func doneButtonPressed() {
+        self.dismiss(animated: true)
+    }
+    
     private func setupTargetsForButtons() {
         
         setButton.addTarget(self,
@@ -153,7 +172,6 @@ class SettingsViewController: UIViewController {
         }
         
         delegate?.setCountingStartAt(number: number)
-        delegate?.setSettings()
         
         self.dismiss(animated: true)
     }

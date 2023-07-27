@@ -10,7 +10,7 @@ import Foundation
 enum SwitchesName: String {
     case Vibration
     case Sound
-    case negativeNumbers
+    case NegativeNumbers
 }
 
 
@@ -55,7 +55,7 @@ class SettingsTableViewCellModel: SettingsTableViewCellProtocol {
             vibrationSwitchState.toggle()
         case SwitchesName.Sound:
             soundSwitchState.toggle()
-        case SwitchesName.negativeNumbers:
+        case SwitchesName.NegativeNumbers:
             negativeNumbers.toggle()
         }
     }

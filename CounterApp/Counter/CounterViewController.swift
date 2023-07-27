@@ -343,7 +343,8 @@ class CounterViewController: UIViewController {
     @objc func goToSettingsVC() {
         let vc = SettingsViewController()
         vc.delegate = self
-        present(vc, animated: true)
+        let navBarOnModal = UINavigationController(rootViewController: vc)
+        present(navBarOnModal, animated: true, completion: nil)
     }
     
     @objc func showSavingAlertAction() {

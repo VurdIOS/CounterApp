@@ -18,6 +18,7 @@ class SavedCountersViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(tableView)
         setupNavigationBar()
+        title = "Saved"
         
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")

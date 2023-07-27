@@ -9,7 +9,7 @@ import UIKit
 
 class TableViewForSettingsView: UIView {
     
-    let tasks = ["Vibration", "Sound", "negativeNumbers"]
+    let tasks = ["Vibration", "Sound", "NegativeNumbers"]
     
     var tableView = UITableView(frame: .zero, style: .insetGrouped)
 
