@@ -68,9 +68,9 @@ class CounterViewModel: CounterViewModelProtocol {
         if on {
             counter += stepCounter
         } else {
-            if !negativeNumbersState, counter >= 1 {
-                counter -= stepCounter
-            } else if negativeNumbersState {
+            if !negativeNumbersState, counter - stepCounter < 0 {
+                counter = 0
+            } else {
                 counter -= stepCounter
             }
         }

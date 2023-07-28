@@ -9,7 +9,7 @@ import UIKit
 
 class DeveloperViewController: UIViewController {
     
-    var scrollView = UIScrollView()
+    var scrollView : UIScrollView!
     
     var uiview = UIView()
     
@@ -26,7 +26,9 @@ class DeveloperViewController: UIViewController {
         
         return container
     }()
+    
     let developerImage = UIImage(named: "Developer1")
+    
     var developerImageView: UIImageView!
 
     let developerFirstLabel: UILabel = {
@@ -48,43 +50,38 @@ class DeveloperViewController: UIViewController {
     let developerSecondLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "Приложение действительно специфично, и им будут пользоваться только те, кому оно действительно необходимо. Поэтому, если вдруг тебе не хватает функционала, возможно какой то приятно мелочи, ты можешь мне написать и скорее всего я ее добавлю))) Напиши мне в телегра @jun_dev_ios"
+        label.text = "Приложение действительно специфично, и им будут пользоваться только те, кому оно действительно необходимо. Поэтому, если вдруг тебе не хватает функционала, возможно какой то приятной мелочи, ты можешь мне написать и скорее всего я ее добавлю))) Напиши мне в телеграм @jun_dev_ios"
         
         label.numberOfLines = 0
         label.textAlignment = .natural
         label.font = UIFont(name: "MarkerFelt-Wide", size: 20)
-        
-        
         
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
     
-
+    private var contentSize: CGSize {
+        var size = CGSize()
+        if view.frame.height < 800 {
+            size = CGSize(width: view.frame.width, height: view.frame.height + 250)
+        } else if view.frame.height < 900 {
+            size = CGSize(width: view.frame.width, height: view.frame.height + 50)
+        } else {
+            size = CGSize(width: view.frame.width, height: view.frame.height)
+        }
+        
+        return size
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        scrollView = UIScrollView(frame: view.bounds)
-        scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height + 500)
-        
-
-        uiview.backgroundColor = .systemGray5
-        uiview.frame.size = CGSize(width: view.frame.width, height: view.frame.height + 500)
-        
-        
-        
-        SetupDeveloperImage()
+        SetupUI()
         setupConstraints()
-        
-        // Цвет для БГ
-        view.backgroundColor = .systemGray5
-        
         
     }
     
-    func SetupDeveloperImage() {
-        
+    func SetupUI() {
         //Настраиваем картинку которую поместим в контейнер
         developerImageView = UIImageView(frame: imageContainer.bounds)
         developerImageView.image = developerImage
@@ -92,23 +89,22 @@ class DeveloperViewController: UIViewController {
         let cornerRadius = developerImageView.frame.height / 2
         developerImageView.layer.cornerRadius = cornerRadius
         
-        imageContainer.layer.shadowPath = UIBezierPath(roundedRect: imageContainer.bounds, cornerRadius: cornerRadius).cgPath
         
+        scrollView = UIScrollView(frame: view.bounds)
+        scrollView.contentSize = contentSize
         
+
+        uiview.backgroundColor = .systemGray5
+        uiview.frame.size = contentSize
     }
     
     func setupConstraints() {
-        // Помещаем картинку в контейнер
-        
-        
         //Добавляем контейнер на Вьюху
         view.addSubview(scrollView)
         scrollView.addSubview(uiview)
         uiview.addSubview(imageContainer)
         uiview.addSubview(developerFirstLabel)
         uiview.addSubview(developerSecondLabel)
-        
-        
         
         scrollView.heightAnchor.constraint(equalToConstant: 500).isActive = true
         
